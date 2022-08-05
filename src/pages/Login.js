@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchToken } from '../redux/actions';
 
 class Login extends React.Component {
   constructor() {
@@ -24,6 +27,10 @@ class Login extends React.Component {
   }
 
   handleClick = () => {
+    const { clickButton, history } = this.props;
+    clickButton();
+    console.log(history);
+    history.push('/play');
   }
 
   render() {
@@ -67,4 +74,13 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  clickButton: PropTypes.func.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  clickButton: () => dispatch(fetchToken()),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

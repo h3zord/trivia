@@ -35,41 +35,51 @@ class Login extends React.Component {
 
   render() {
     const { playerName, playerEmail, isButtonDisabled } = this.state;
+    const { history } = this.props;
     return (
-      <form>
-        <label htmlFor="input-player-name">
-          Jogador:
-          <input
-            type="text"
-            data-testid="input-player-name"
-            id="input-player-name"
-            name="playerName"
-            placeholder="Insira o nome do jogador"
-            onChange={ this.handleInputChange }
-            value={ playerName }
-          />
-        </label>
-        <label htmlFor="input-gravatar-email">
-          E-mail:
-          <input
-            type="email"
-            data-testid="input-gravatar-email"
-            id="input-gravatar-email"
-            name="playerEmail"
-            placeholder="Insira o e-mail do jogador"
-            onChange={ this.handleInputChange }
-            value={ playerEmail }
-          />
-        </label>
+      <>
+        <form>
+          <label htmlFor="input-player-name">
+            Jogador:
+            <input
+              type="text"
+              data-testid="input-player-name"
+              id="input-player-name"
+              name="playerName"
+              placeholder="Insira o nome do jogador"
+              onChange={ this.handleInputChange }
+              value={ playerName }
+            />
+          </label>
+          <label htmlFor="input-gravatar-email">
+            E-mail:
+            <input
+              type="email"
+              data-testid="input-gravatar-email"
+              id="input-gravatar-email"
+              name="playerEmail"
+              placeholder="Insira o e-mail do jogador"
+              onChange={ this.handleInputChange }
+              value={ playerEmail }
+            />
+          </label>
+          <button
+            type="button"
+            data-testid="btn-play"
+            disabled={ isButtonDisabled }
+            onClick={ this.handleClick }
+          >
+            Play
+          </button>
+        </form>
         <button
           type="button"
-          data-testid="btn-play"
-          disabled={ isButtonDisabled }
-          onClick={ this.handleClick }
+          data-testid="btn-settings"
+          onClick={ () => { history.push('/settings'); } }
         >
-          Play
+          Configurações
         </button>
-      </form>
+      </>
     );
   }
 }

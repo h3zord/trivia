@@ -1,5 +1,7 @@
 const INITIAL_STATE = {
   token: '',
+  playerName: '',
+  playerEmail: '',
 };
 
 const login = (state = INITIAL_STATE, action) => {
@@ -8,6 +10,12 @@ const login = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       token: action.token,
+    };
+  case 'PLAYER_INFO_TO_STORE':
+    return {
+      ...state,
+      playerName: action.playerName,
+      playerEmail: action.playerEmail,
     };
   default:
     return state;

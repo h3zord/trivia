@@ -27,7 +27,14 @@ function fetchToken() {
   };
 }
 
+const playerInfoToStore = (playerName, playerEmail) => ({
+  type: 'PLAYER_INFO_TO_STORE',
+  playerName,
+  playerEmail,
+});
+
 export {
   fetchToken,
   receiveTokenSuccess,
+  playerInfoToStore,
 };

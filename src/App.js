@@ -1,10 +1,12 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import logo from './trivia.png';
 import './App.css';
+// import Feedback from './pages/Feedback';
+// import Ranking from './pages/Ranking';
+import Game from './pages/Game';
 import Login from './pages/Login';
 import Settings from './pages/Settings';
-import Game from './pages/Game';
+import logo from './trivia.png';
 
 export default function App() {
   return (
@@ -17,8 +19,9 @@ export default function App() {
         <Route path="/" exact component={ Login } />
         <Route path="/game" component={ Game } />
         <Route path="/settings" component={ Settings } />
+        {/* <Route path="/feedback" component={ Feedback } /> */}
+        {/* <Route path="/ranking" component={ Ranking } /> */}
       </Switch>
-
     </div>
   );
 }

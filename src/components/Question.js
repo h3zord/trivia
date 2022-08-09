@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import randomArray from '../helpers/randomArray';
 
 class Question extends React.Component {
@@ -10,6 +10,7 @@ class Question extends React.Component {
 
   render() {
     const { question } = this.props;
+    console.log(question);
     const answers = question.incorrect_answers;
     answers.push(question.correct_answer);
     const shuffledAnswers = randomArray(answers);

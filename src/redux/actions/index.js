@@ -14,6 +14,11 @@ const receiveTokenFailure = (error) => ({
   error,
 });
 
+const actionQuestions = (payload) => ({
+  type: 'RECEIVE_QUESTIONS',
+  payload,
+});
+
 function fetchToken() {
   return async (dispatch, getState) => {
     console.log('getState -->', getState);
@@ -37,4 +42,5 @@ export {
   fetchToken,
   receiveTokenSuccess,
   playerInfoToStore,
+  actionQuestions,
 };

@@ -4,6 +4,7 @@ const getToken = async () => {
   const response = await fetch(TOKEN_URL);
   const data = await response.json();
   localStorage.setItem('token', data.token);
+  console.log('token é', typeof data.token);
   return data.token;
 };
 

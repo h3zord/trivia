@@ -15,7 +15,7 @@ class Header extends React.Component {
           alt="ProfileAVATAR"
         />
         <p data-testid="header-player-name">{ playerName }</p>
-        <p data-testid="header-score">{ playerScore }</p>
+        <p data-testid="header-score">{ `${playerScore}` }</p>
       </header>
     );
   }
@@ -33,7 +33,8 @@ Header.defaultProps = {
 
 const mapStateToProps = (store) => ({
   playerName: store.login.playerName,
-  playerScore: store.game.player.score,
+  // playerScore: store.game.player.score,
+  playerScore: store.player.score,
   playerEmail: store.login.playerEmail,
 });
 

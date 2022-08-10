@@ -140,7 +140,8 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (store) => ({
   timeOver: store.game.timeOver,
   timer: store.game.timer,
-  score: store.game.player.score,
+  score: store.player.score,
+  // score: store.game.player.score,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Question);

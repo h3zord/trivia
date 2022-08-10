@@ -34,7 +34,7 @@ describe('Test Login Page', () => {
     expect(button.disabled).toBe(false);
   });
 
-  it('Test if on click in the play button is redirect to page Play', () => {
+  it('Test if on click in the play button is redirect to page Play', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
 
     const name = screen.getByPlaceholderText(/Insira o nome do jogador/i);
@@ -45,8 +45,11 @@ describe('Test Login Page', () => {
     userEvent.type(email, 'email@teste.com');
     userEvent.click(button);
     
+    const getScore = await screen.findByText("0");
     const { pathname } = history.location;
-    expect(pathname).toBe('/play');
+
+    expect(pathname).toBe('/game');
+    expect(getScore).toBeInTheDocument();
   });
 
   it('Test if page is redirect on click the button config', () => {

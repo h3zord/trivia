@@ -33,7 +33,6 @@ class Login extends React.Component {
     const require = await getToken();
     const { token } = require;
     sendPlayerInfoToStore(playerName, playerEmail);
-    console.log(history);
     await localStorage.setItem('token', token);
     history.push('/game');
   }

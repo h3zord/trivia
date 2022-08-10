@@ -30,7 +30,6 @@ export const requestQuestions = (endPoint) => async (dispatch) => {
   try {
     const resolve = await fetch(endPoint);
     const data = await resolve.json();
-    console.log(data);
     dispatch(requestSuccess(data));
   } catch (error) {
     dispatch(requestError());

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import Question from '../components/Questions';
+import Timer from '../components/Timer';
 import { requestQuestions } from '../redux/actions';
 
 class Game extends React.Component {
@@ -21,6 +22,7 @@ class Game extends React.Component {
     return (
       <>
         <Header />
+        <Timer />
         {!requestAPI
         && <Question question={ questions[0] } randomArray={ randomArray[0] } />}
       </>

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import randomArray from '../helpers/randomArray';
+import randomArray from '../tests/helpers/randomArray';
 
 class Question extends React.Component {
   // handleAnswerSubmit = ({ target }) => {

@@ -1,6 +1,6 @@
 import md5 from 'crypto-js/md5';
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
 // alterando
 

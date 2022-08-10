@@ -29,6 +29,7 @@ const game = (state = INITIAL_STATE, action) => {
     return {
       ...state, timeOver: action.payload,
     };
+
   case 'SHOW_BUTTON':
     return {
       ...state, showButton: action.payload,

@@ -1,7 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
-import { fetchToken, playerInfoToStore } from '../redux/actions';
+import { playerInfoToStore } from '../redux/actions';
+import getToken from '../services/tokenAPI';
 
 class Login extends React.Component {
   constructor() {
@@ -26,12 +27,13 @@ class Login extends React.Component {
     });
   }
 
-  handleClick = () => {
-    const { getToken, history, sendPlayerInfoToStore } = this.props;
+  handleClick = async () => {
+    const { history, sendPlayerInfoToStore } = this.props;
     const { playerName, playerEmail } = this.state;
-    getToken();
+    const require = await getToken();
+    const { token } = require;
     sendPlayerInfoToStore(playerName, playerEmail);
-    console.log(history);
+    await localStorage.setItem('token', token);
     history.push('/game');
   }
 
@@ -87,13 +89,11 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  getToken: PropTypes.func.isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   sendPlayerInfoToStore: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getToken: () => dispatch(fetchToken()),
   sendPlayerInfoToStore: (playerName, playerEmail) => (
     dispatch(playerInfoToStore(playerName, playerEmail))),
 });

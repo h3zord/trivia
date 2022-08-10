@@ -46,6 +46,8 @@ const showTimer = (payload) => ({ type: 'SHOW_TIMER', payload });
 
 const timeOver = (payload) => ({ type: 'TIME_OVER', payload });
 
+const actionReciveButton = (payload) => ({ type: 'SHOW_BUTTON', payload });
+
 const sumScore = (payload) => ({ type: 'SUM_SCORE', payload });
 
 export {
@@ -53,5 +55,6 @@ export {
   playerInfoToStore,
   showTimer,
   timeOver,
+  actionReciveButton,
   sumScore,
 };

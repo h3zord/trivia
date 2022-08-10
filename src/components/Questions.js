@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { sumScore } from '../redux/actions';
+import { actionReciveButton, sumScore } from '../redux/actions';
 
 class Question extends React.Component {
   // handleAnswerSubmit = ({ target }) => {
@@ -54,7 +54,7 @@ class Question extends React.Component {
   }
 
   handleClick = ({ target }) => {
-    const { question: { correct_answer: correct } } = this.props;
+    const { question: { correct_answer: correct }, reciveButton } = this.props;
     if (target.innerText === correct) {
       target.classList.add('question-correct');
     } else {
@@ -62,6 +62,7 @@ class Question extends React.Component {
     }
     const buttons = document.querySelectorAll('.button');
     this.alternate(buttons);
+    reciveButton(true);
     this.validationAnswer(target);
   }
 
@@ -127,21 +128,24 @@ Question.propTypes = {
   score: PropTypes.number,
   timer: PropTypes.number.isRequired,
   sumScoreAction: PropTypes.func.isRequired,
+  reciveButton: PropTypes.func.isRequired,
 };
 
 Question.defaultProps = {
   score: 0,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  sumScoreAction: (payload) => dispatch(sumScore(payload)),
-});
-
 const mapStateToProps = (store) => ({
   timeOver: store.game.timeOver,
-  timer: store.game.timer,
+  showButton: store.game.showButton,
   score: store.player.score,
+  timer: store.game.timer,
   // score: store.game.player.score,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  reciveButton: (payload) => dispatch(actionReciveButton(payload)),
+  sumScoreAction: (payload) => dispatch(sumScore(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Question);

@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { actionReciveButton, sumScore } from '../redux/actions';
 
-
 class Question extends React.Component {
   // handleAnswerSubmit = ({ target }) => {
   //   const gotItRight = target.key === 'correct_answer';

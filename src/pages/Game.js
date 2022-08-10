@@ -5,12 +5,11 @@ import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import Question from '../components/Questions';
 import Timer from '../components/Timer';
-import { requestQuestions, actionReciveButton } from '../redux/actions';
+import { actionReciveButton, requestQuestions } from '../redux/actions';
 
 class Game extends React.Component {
   constructor() {
     super();
-
     this.state = { indexQuestions: 0 };
   }
 
@@ -24,9 +23,15 @@ class Game extends React.Component {
   };
 
   onClickChange = () => {
+    const { history } = this.props;
+    const { indexQuestions } = this.state;
+    const numberIndex = 4;
     this.setState((prevState) => ({
       indexQuestions: prevState.indexQuestions + 1,
     }));
+    if (indexQuestions === numberIndex) {
+      history.push('/feedback');
+    }
   };
 
   render() {
@@ -81,6 +86,7 @@ Game.propTypes = {
   requestAPI: PropTypes.bool,
   randomArray: PropTypes.arrayOf(PropTypes.any),
   showButton: PropTypes.bool.isRequired,
+  history: PropTypes.func.isRequired,
 };
 
 Game.defaultProps = {

@@ -1,21 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Header from '../components/Header';
 
-menssageScore = () => {
-  const { getScore } = this.props;
-  const number = 3;
-  if (getScore < number) {
-    return 'Could be better...';
-  }
-  if (getScore >= number) {
-    return 'Well Done!';
-  }
-};
+// menssageScore = () => {
+//   const { getScore } = this.props;
+//   const number = 3;
+//   if (getScore < number) {
+//     return 'Could be better...';
+//   }
+//   if (getScore >= number) {
+//     return 'Well Done!';
+//   }
+// };
 
-handleClick = () => {
-  const { history } = this.props;
-  history.push('/Ranking');
-};
+// handleClick = () => {
+//   const { history } = this.props;
+//   history.push('/Ranking');
+// };
 
 class Feedback extends React.Component {
   render() {
@@ -23,15 +24,16 @@ class Feedback extends React.Component {
       <div>
         <Header />
         <p data-testid="feedback-text">
-          {this.menssageScore}
+          Ola,hehe
+          {/* {this.menssageScore} */}
         </p>
-        <button
+        {/* <button
           type="button"
           data-testid="btn-ranking"
           onClick={ this.handleClick }
         >
           Ranking
-        </button>
+        </button> */}
       </div>
     );
   }

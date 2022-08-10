@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { actionReciveButton } from '../redux/actions';
 
 class Question extends React.Component {
   // handleAnswerSubmit = ({ target }) => {
@@ -22,7 +23,7 @@ class Question extends React.Component {
   }
 
   handleClick = ({ target }) => {
-    const { question: { correct_answer: correct } } = this.props;
+    const { question: { correct_answer: correct }, reciveButton } = this.props;
     if (target.innerText === correct) {
       target.classList.add('question-correct');
     } else {
@@ -30,6 +31,7 @@ class Question extends React.Component {
     }
     const buttons = document.querySelectorAll('.button');
     this.alternate(buttons);
+    reciveButton(true);
   }
 
   render() {
@@ -94,6 +96,11 @@ Question.propTypes = {
 
 const mapStateToProps = (store) => ({
   timeOver: store.game.timeOver,
+  showButton: store.game.showButton,
 });
 
-export default connect(mapStateToProps)(Question);
+const mapDispatchToProps = (dispatch) => ({
+  reciveButton: (payload) => dispatch(actionReciveButton(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Question);

@@ -46,9 +46,12 @@ const showTimer = (payload) => ({ type: 'SHOW_TIMER', payload });
 
 const timeOver = (payload) => ({ type: 'TIME_OVER', payload });
 
+const actionReciveButton = (payload) => ({ type: 'SHOW_BUTTON', payload });
+
 export {
   receiveTokenSuccess,
   playerInfoToStore,
   showTimer,
   timeOver,
+  actionReciveButton,
 };

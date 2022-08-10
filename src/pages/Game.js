@@ -5,16 +5,33 @@ import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import Question from '../components/Questions';
 import Timer from '../components/Timer';
-import { requestQuestions } from '../redux/actions';
+import { requestQuestions, actionReciveButton } from '../redux/actions';
 
 class Game extends React.Component {
-  componentDidMount = () => {
-    const { fetchAPI } = this.props;
-    fetchAPI(`https://opentdb.com/api.php?amount=5&token=${localStorage.getItem('token')}`);
+  constructor() {
+    super();
+
+    this.state = { indexQuestions: 0 };
   }
 
+  componentDidMount = () => {
+    const { fetchAPI } = this.props;
+    fetchAPI(
+      `https://opentdb.com/api.php?amount=5&token=${localStorage.getItem(
+        'token',
+      )}`,
+    );
+  };
+
+  onClickChange = () => {
+    this.setState((prevState) => ({
+      indexQuestions: prevState.indexQuestions + 1,
+    }));
+  };
+
   render() {
-    const { questions, requestAPI, requestState, randomArray } = this.props;
+    const { indexQuestions } = this.state;
+    const { questions, requestAPI, requestState, randomArray, showButton } = this.props;
     const requestFailed = 3;
     if (requestState === requestFailed) {
       return <Redirect to="/" />;
@@ -23,8 +40,22 @@ class Game extends React.Component {
       <>
         <Header />
         <Timer />
-        {!requestAPI
-        && <Question question={ questions[0] } randomArray={ randomArray[0] } />}
+        {!requestAPI && (
+          <Question
+            question={ questions[indexQuestions] }
+            randomArray={ randomArray[indexQuestions] }
+          />
+        )}
+        { showButton ? (
+          <button
+            id="buttonNext"
+            type="button"
+            data-testid="btn-next"
+            onClick={ this.onClickChange }
+          >
+            Next
+          </button>
+        ) : ('')}
       </>
     );
   }
@@ -32,6 +63,7 @@ class Game extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchAPI: (endPoint) => dispatch(requestQuestions(endPoint)),
+  reciveButton: (payload) => dispatch(actionReciveButton(payload)),
 });
 
 const mapStateToProps = (store) => ({
@@ -39,6 +71,7 @@ const mapStateToProps = (store) => ({
   requestAPI: store.game.requestAPI,
   requestState: store.game.requestState,
   randomArray: store.game.randomArray,
+  showButton: store.game.showButton,
 });
 
 Game.propTypes = {

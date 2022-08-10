@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   score: 0,
   timer: 30,
   timeOver: false,
+  showButton: false,
 };
 
 const game = (state = INITIAL_STATE, action) => {
@@ -25,6 +26,10 @@ const game = (state = INITIAL_STATE, action) => {
   case 'TIME_OVER':
     return {
       ...state, timeOver: action.payload,
+    };
+  case 'SHOW_BUTTON':
+    return {
+      ...state, showButton: action.payload,
     };
   default:
     return state;

@@ -1,7 +1,9 @@
 import { REQUEST_API, REQUEST_SUCSSES } from '../actions';
 
 const INITIAL_STATE = {
-  score: 0,
+  player: {
+    score: 0,
+  },
   timer: 30,
   timeOver: false,
 };
@@ -13,7 +15,7 @@ const game = (state = INITIAL_STATE, action) => {
   case REQUEST_SUCSSES:
     return { ...state,
       questions: action.questions,
-      score: 0,
+      player: { score: 0 },
       randomArray: action.randomArray,
       requestAPI: false,
       requestState: action.requestState,
@@ -25,6 +27,10 @@ const game = (state = INITIAL_STATE, action) => {
   case 'TIME_OVER':
     return {
       ...state, timeOver: action.payload,
+    };
+  case 'SUM_SCORE':
+    return {
+      ...state, player: { score: action.payload },
     };
   default:
     return state;

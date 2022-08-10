@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 class Header extends React.Component {
   render() {
     const { playerName, playerScore, playerEmail } = this.props;
+    console.log(playerScore);
     return (
       <header>
         <img
@@ -22,13 +23,17 @@ class Header extends React.Component {
 
 Header.propTypes = {
   playerName: PropTypes.string.isRequired,
-  playerScore: PropTypes.number.isRequired,
+  playerScore: PropTypes.number,
   playerEmail: PropTypes.string.isRequired,
+};
+
+Header.defaultProps = {
+  playerScore: 0,
 };
 
 const mapStateToProps = (store) => ({
   playerName: store.login.playerName,
-  playerScore: store.game.score,
+  playerScore: store.game.player.score,
   playerEmail: store.login.playerEmail,
 });
 

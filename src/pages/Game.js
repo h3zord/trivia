@@ -80,6 +80,7 @@ Game.propTypes = {
   fetchAPI: PropTypes.func.isRequired,
   requestAPI: PropTypes.bool,
   randomArray: PropTypes.arrayOf(PropTypes.any),
+  showButton: PropTypes.bool.isRequired,
 };
 
 Game.defaultProps = {

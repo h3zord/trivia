@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
 // import randomArray from '../tests/helpers/randomArray';
 
 class Question extends React.Component {
@@ -33,7 +34,7 @@ class Question extends React.Component {
   }
 
   render() {
-    const { question, randomArray } = this.props;
+    const { question, randomArray, timeOver } = this.props;
     // console.log(question);
     // console.log(question.incorrect_answers);
     // console.log(question.correct_answer);
@@ -62,6 +63,7 @@ class Question extends React.Component {
                   key="correct_answer"
                   className="button"
                   onClick={ this.handleClick }
+                  disabled={ timeOver }
                 >
                   {answer}
                 </button>);
@@ -74,6 +76,7 @@ class Question extends React.Component {
                 key={ wrongAnswerIndex }
                 className="button"
                 onClick={ this.handleClick }
+                disabled={ timeOver }
               >
                 {answer}
               </button>);
@@ -87,7 +90,11 @@ class Question extends React.Component {
 Question.propTypes = {
   question: PropTypes.objectOf(PropTypes.any).isRequired,
   randomArray: PropTypes.arrayOf(PropTypes.any).isRequired,
-  questions: PropTypes.shape({}).isRequired,
+  timeOver: PropTypes.bool.isRequired,
 };
 
-export default Question;
+const mapStateToProps = (store) => ({
+  timeOver: store.game.timeOver,
+});
+
+export default connect(mapStateToProps)(Question);

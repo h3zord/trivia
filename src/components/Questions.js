@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 // import randomArray from '../tests/helpers/randomArray';
 
 class Question extends React.Component {
@@ -7,6 +7,30 @@ class Question extends React.Component {
   //   const gotItRight = target.key === 'correct_answer';
 
   // }
+
+  alternate = (element) => {
+    const { question: { correct_answer: correct } } = this.props;
+    for (let index = 0; index < element.length; index += 1) {
+      if (element[index].classList.length !== 0) {
+        if (element[index].innerText === correct) {
+          element[index].classList.add('question-correct');
+        } else {
+          element[index].classList.add('question-incorrect');
+        }
+      }
+    }
+  }
+
+  handleClick = ({ target }) => {
+    const { question: { correct_answer: correct } } = this.props;
+    if (target.innerText === correct) {
+      target.classList.add('question-correct');
+    } else {
+      target.classList.add('question-incorrect');
+    }
+    const buttons = document.querySelectorAll('.button');
+    this.alternate(buttons);
+  }
 
   render() {
     const { question, randomArray } = this.props;
@@ -36,7 +60,8 @@ class Question extends React.Component {
                   data-testid="correct-answer"
                   type="button"
                   key="correct_answer"
-                  onClick={ this.handleAnswerSubmit }
+                  className="button"
+                  onClick={ this.handleClick }
                 >
                   {answer}
                 </button>);
@@ -47,7 +72,8 @@ class Question extends React.Component {
                 data-testid={ `wrong-answer-${wrongAnswerIndex - 1}` }
                 type="button"
                 key={ wrongAnswerIndex }
-                onClick={ this.handleAnswerSubmit }
+                className="button"
+                onClick={ this.handleClick }
               >
                 {answer}
               </button>);
@@ -61,6 +87,7 @@ class Question extends React.Component {
 Question.propTypes = {
   question: PropTypes.objectOf(PropTypes.any).isRequired,
   randomArray: PropTypes.arrayOf(PropTypes.any).isRequired,
+  questions: PropTypes.shape({}).isRequired,
 };
 
 export default Question;

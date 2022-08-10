@@ -44,7 +44,7 @@ describe('Test Login Page', () => {
     userEvent.type(name, 'userName');
     userEvent.type(email, 'email@teste.com');
     userEvent.click(button);
-    
+
     const getScore = await screen.findByText("0");
     const { pathname } = history.location;
 

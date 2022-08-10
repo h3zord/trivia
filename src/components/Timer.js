@@ -16,7 +16,6 @@ class Timer extends React.Component {
     const myInterval = setInterval(() => {
       if (maxTimer > 0) {
         maxTimer -= 1;
-        console.log(maxTimer);
         showTimerAction(maxTimer);
       } else if (maxTimer === 0) {
         timeOverAction(true);

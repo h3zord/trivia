@@ -25,7 +25,7 @@ class Feedback extends React.Component {
         <Header />
         <p data-testid="feedback-text">
           Ola,hehe
-          {/* {this.menssageScore} */}
+          {/* {this.menssageScore()} */}
         </p>
         {/* <button
           type="button"

@@ -23,6 +23,23 @@ class Game extends React.Component {
     );
   };
 
+  saveInLocalStorage = () => {
+    const { player, login } = this.props;
+    const ranking = localStorage.getItem('ranking');
+    const persson = {
+      name: login.playerName,
+      score: player.score,
+      picture: login.playerEmail,
+    };
+    if (ranking === null) {
+      localStorage.setItem('ranking', JSON.stringify(persson));
+    } else {
+      const ricoverRankingAtLocalStorage = JSON.parse([persson]);
+      ricoverRankingAtLocalStorage.push(persson);
+      localStorage.setItem('ranking', JSON.stringify(ricoverRankingAtLocalStorage));
+    }
+  }
+
   onClickChange = () => {
     const { history, showTimerAction, timeOverAction, reciveButton } = this.props;
     const { indexQuestions } = this.state;
@@ -32,6 +49,7 @@ class Game extends React.Component {
       indexQuestions: prevState.indexQuestions + 1,
     }));
     if (indexQuestions === numberIndex) {
+      this.saveInLocalStorage();
       history.push('/feedback');
     }
     showTimerAction(MAGICNUMBER);
@@ -84,6 +102,8 @@ const mapStateToProps = (store) => ({
   requestState: store.game.requestState,
   randomArray: store.game.randomArray,
   showButton: store.game.showButton,
+  player: store.player,
+  login: store.login,
 });
 
 Game.propTypes = {

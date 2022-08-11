@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { actionReciveButton, sumScore } from '../redux/actions';
+import { actionReciveButton, sumScore, sumTotalPoints } from '../redux/actions';
 
 class Question extends React.Component {
   // handleAnswerSubmit = ({ target }) => {
@@ -23,12 +23,13 @@ class Question extends React.Component {
   }
 
   validationAnswer = (target) => {
-    const { question, timer, sumScoreAction, score } = this.props;
+    const { question, timer, sumScoreAction, score, sumTotalPointsAction } = this.props;
     const MAGICNUMBER = 10;
     const HARD = 3;
     let subTotalScore = 0;
     let totalScore = 0;
     if (target.id === 'correct-answer') {
+      sumTotalPointsAction();
       if (question.difficulty === 'easy') {
         subTotalScore = MAGICNUMBER + (timer * 1);
         totalScore = subTotalScore + score;
@@ -129,6 +130,7 @@ Question.propTypes = {
   timer: PropTypes.number.isRequired,
   sumScoreAction: PropTypes.func.isRequired,
   reciveButton: PropTypes.func.isRequired,
+  sumTotalPointsAction: PropTypes.func.isRequired,
 };
 
 Question.defaultProps = {
@@ -146,6 +148,7 @@ const mapStateToProps = (store) => ({
 const mapDispatchToProps = (dispatch) => ({
   reciveButton: (payload) => dispatch(actionReciveButton(payload)),
   sumScoreAction: (payload) => dispatch(sumScore(payload)),
+  sumTotalPointsAction: () => dispatch(sumTotalPoints()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Question);

@@ -61,4 +61,4 @@ describe('Test Login Page', () => {
     const heading = screen.getByText(/configurações/i);
     expect(heading).toBeInTheDocument();
   });
-});
+}); 

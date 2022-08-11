@@ -50,6 +50,8 @@ const actionReciveButton = (payload) => ({ type: 'SHOW_BUTTON', payload });
 
 const sumScore = (payload) => ({ type: 'SUM_SCORE', payload });
 
+const sumTotalPoints = () => ({ type: 'SUM_TOTAL_POINTS' });
+
 export {
   receiveTokenSuccess,
   playerInfoToStore,
@@ -57,4 +59,5 @@ export {
   timeOver,
   actionReciveButton,
   sumScore,
+  sumTotalPoints,
 };

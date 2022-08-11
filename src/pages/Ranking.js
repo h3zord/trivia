@@ -10,19 +10,20 @@ class Ranking extends React.Component {
 
   render() {
     const ranking = JSON.parse(localStorage.getItem('ranking'));
+    console.log(ranking);
     return (
       <div>
         <h1 data-testid="ranking-title">Ranking</h1>
         {
-          ranking.map((rank, index) => (
+          ranking.map((position, index) => (
             <div key={ index }>
               <img
-                src={ `https://www.gravatar.com/avatar/${md5(rank.picture).toString()}` }
+                src={ `https://www.gravatar.com/avatar/${md5(position.picture).toString()}` }
                 alt="GravatarImage"
                 data-testid="header-profile-picture"
               />
-              <p data-testid={ `player-name-${index}` }>{rank.name}</p>
-              <p data-testid={ `player-score-${index}` }>{rank.score}</p>
+              <p data-testid={ `player-name-${index}` }>{position.name}</p>
+              <p data-testid={ `player-score-${index}` }>{position.score}</p>
             </div>
           ))
         }

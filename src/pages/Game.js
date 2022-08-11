@@ -34,7 +34,7 @@ class Game extends React.Component {
     if (ranking === null) {
       localStorage.setItem('ranking', JSON.stringify(persson));
     } else {
-      const ricoverRankingAtLocalStorage = JSON.parse([persson]);
+      const ricoverRankingAtLocalStorage = JSON.parse([ranking]);
       ricoverRankingAtLocalStorage.push(persson);
       localStorage.setItem('ranking', JSON.stringify(ricoverRankingAtLocalStorage));
     }
@@ -117,6 +117,8 @@ Game.propTypes = {
   showTimerAction: PropTypes.func.isRequired,
   timeOverAction: PropTypes.func.isRequired,
   reciveButton: PropTypes.func.isRequired,
+  player: PropTypes.objectOf(PropTypes.any).isRequired,
+  login: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 Game.defaultProps = {

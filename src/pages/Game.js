@@ -5,7 +5,8 @@ import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import Question from '../components/Questions';
 import Timer from '../components/Timer';
-import { actionReciveButton, requestQuestions } from '../redux/actions';
+import { actionReciveButton,
+  requestQuestions, showTimer, timeOver } from '../redux/actions';
 
 class Game extends React.Component {
   constructor() {
@@ -23,16 +24,20 @@ class Game extends React.Component {
   };
 
   onClickChange = () => {
-    const { history } = this.props;
+    const { history, showTimerAction, timeOverAction, reciveButton } = this.props;
     const { indexQuestions } = this.state;
     const numberIndex = 4;
+    const MAGICNUMBER = 30;
     this.setState((prevState) => ({
       indexQuestions: prevState.indexQuestions + 1,
     }));
     if (indexQuestions === numberIndex) {
       history.push('/feedback');
     }
-  };
+    showTimerAction(MAGICNUMBER);
+    timeOverAction(false);
+    reciveButton(false);
+  }
 
   render() {
     const { indexQuestions } = this.state;
@@ -69,6 +74,8 @@ class Game extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   fetchAPI: (endPoint) => dispatch(requestQuestions(endPoint)),
   reciveButton: (payload) => dispatch(actionReciveButton(payload)),
+  showTimerAction: (payload) => dispatch(showTimer(payload)),
+  timeOverAction: (payload) => dispatch(timeOver(payload)),
 });
 
 const mapStateToProps = (store) => ({
@@ -86,7 +93,10 @@ Game.propTypes = {
   requestAPI: PropTypes.bool,
   randomArray: PropTypes.arrayOf(PropTypes.any),
   showButton: PropTypes.bool.isRequired,
-  history: PropTypes.func.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  showTimerAction: PropTypes.func.isRequired,
+  timeOverAction: PropTypes.func.isRequired,
+  reciveButton: PropTypes.func.isRequired,
 };
 
 Game.defaultProps = {

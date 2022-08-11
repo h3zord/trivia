@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
 import { showTimer, timeOver } from '../redux/actions';
 
@@ -27,7 +27,11 @@ class Timer extends React.Component {
   render() {
     const { timer } = this.props;
     return (
-      <p>{ timer }</p>
+      <p>
+        Timer:
+        {' '}
+        { timer }
+      </p>
     );
   }
 }

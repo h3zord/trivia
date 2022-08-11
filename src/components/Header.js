@@ -10,12 +10,23 @@ class Header extends React.Component {
     return (
       <header>
         <img
+          className="icon-header"
           data-testid="header-profile-picture"
           src={ `https://www.gravatar.com/avatar/${md5(playerEmail).toString()}` }
           alt="ProfileAVATAR"
         />
-        <p data-testid="header-player-name">{ playerName }</p>
-        <p data-testid="header-score">{ `${playerScore}` }</p>
+        <p data-testid="header-player-name">
+          Player:
+          {' '}
+          { playerName }
+        </p>
+        <p>
+          Score:
+          {' '}
+          <span data-testid="header-score">
+            { `${playerScore}` }
+          </span>
+        </p>
       </header>
     );
   }

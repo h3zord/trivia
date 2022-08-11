@@ -25,6 +25,11 @@ class Feedback extends React.Component {
     history.push('/');
   }
 
+  RankingButtonClick = () => {
+    const { history } = this.props;
+    history.push('/ranking');
+  }
+
   render() {
     const { totalPoints, getScore } = this.props;
     const MIN_POINTS = 3;
@@ -43,6 +48,13 @@ class Feedback extends React.Component {
           data-testid="btn-play-again"
         >
           Play Again
+        </button>
+        <button
+          type="button"
+          data-testid="btn-ranking"
+          onClick={ this.RankingButtonClick }
+        >
+          Ranking
         </button>
         {/* {this.menssageScore} */}
         {/* <button

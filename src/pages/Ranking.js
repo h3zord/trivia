@@ -9,7 +9,8 @@ class Ranking extends React.Component {
   }
 
   render() {
-    const ranking = JSON.parse(localStorage.getItem('ranking'));
+    const ranking = JSON.parse(localStorage.getItem('ranking'))
+      .sort((a, b) => b.score - a.score);
     console.log(ranking);
     return (
       <div>

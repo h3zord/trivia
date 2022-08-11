@@ -20,6 +20,11 @@ import Header from '../components/Header';
 // };
 
 class Feedback extends React.Component {
+  playAgainClick = () => {
+    const { history } = this.props;
+    history.push('/');
+  }
+
   render() {
     const { totalPoints, getScore } = this.props;
     const MIN_POINTS = 3;
@@ -32,6 +37,13 @@ class Feedback extends React.Component {
           : <p data-testid="feedback-text">Well Done!</p>}
         <p data-testid="feedback-total-score">{getScore}</p>
         <p data-testid="feedback-total-question">{totalPoints}</p>
+        <button
+          type="button"
+          onClick={ this.playAgainClick }
+          data-testid="btn-play-again"
+        >
+          Play Again
+        </button>
         {/* {this.menssageScore} */}
         {/* <button
           type="button"
@@ -53,6 +65,7 @@ const mapStateToProps = (store) => ({
 Feedback.propTypes = {
   totalPoints: PropTypes.number.isRequired,
   getScore: PropTypes.number.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default connect(mapStateToProps, null)(Feedback);

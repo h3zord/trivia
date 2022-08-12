@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { actionReciveButton, sumScore } from '../redux/actions';
+import { actionReciveButton, sumScore, sumTotalPoints } from '../redux/actions';
 
 class Question extends React.Component {
   // handleAnswerSubmit = ({ target }) => {
@@ -23,30 +23,37 @@ class Question extends React.Component {
   }
 
   validationAnswer = (target) => {
-    const { question, timer, sumScoreAction, score } = this.props;
+    const { question, timer, sumScoreAction, score, sumPoints } = this.props;
     const MAGICNUMBER = 10;
     const HARD = 3;
     let subTotalScore = 0;
     let totalScore = 0;
+    let assertions = 0;
     if (target.id === 'correct-answer') {
       if (question.difficulty === 'easy') {
+        assertions += 1;
         subTotalScore = MAGICNUMBER + (timer * 1);
         totalScore = subTotalScore + score;
         sumScoreAction(totalScore);
+        sumPoints(assertions);
         console.log(subTotalScore);
         console.log(totalScore);
       }
       if (question.difficulty === 'medium') {
+        assertions += 1;
         subTotalScore = MAGICNUMBER + (timer * 2);
         totalScore = subTotalScore + score;
         sumScoreAction(totalScore);
+        sumPoints(assertions);
         console.log(subTotalScore);
         console.log(totalScore);
       }
       if (question.difficulty === 'hard') {
+        assertions += 1;
         subTotalScore = MAGICNUMBER + (timer * HARD);
         totalScore = subTotalScore + score;
         sumScoreAction(totalScore);
+        sumPoints(assertions);
         console.log(subTotalScore);
         console.log(totalScore);
       }
@@ -146,6 +153,7 @@ const mapStateToProps = (store) => ({
 const mapDispatchToProps = (dispatch) => ({
   reciveButton: (payload) => dispatch(actionReciveButton(payload)),
   sumScoreAction: (payload) => dispatch(sumScore(payload)),
+  sumPoints: () => dispatch(sumTotalPoints()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Question);

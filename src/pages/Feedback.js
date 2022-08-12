@@ -28,7 +28,7 @@ class Feedback extends React.Component {
     history.push('/');
   }
 
-  RankingButtonClick = () => {
+  rankingButtonClick = () => {
     const { history, resetScore, resetAssertions } = this.props;
     resetScore();
     resetAssertions();
@@ -69,7 +69,7 @@ class Feedback extends React.Component {
         <button
           type="button"
           data-testid="btn-ranking"
-          onClick={ this.RankingButtonClick }
+          onClick={ this.rankingButtonClick }
         >
           Ranking
         </button>

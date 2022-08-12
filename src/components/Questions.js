@@ -136,6 +136,7 @@ Question.propTypes = {
   timer: PropTypes.number.isRequired,
   sumScoreAction: PropTypes.func.isRequired,
   reciveButton: PropTypes.func.isRequired,
+  sumPoints: PropTypes.func.isRequired,
 };
 
 Question.defaultProps = {

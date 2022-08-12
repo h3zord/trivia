@@ -52,6 +52,10 @@ const sumScore = (payload) => ({ type: 'SUM_SCORE', payload });
 
 const sumTotalPoints = () => ({ type: 'SUM_TOTAL_POINTS' });
 
+const resetScoreAction = () => ({ type: 'RESET_SCORE' });
+
+const resetAssertionsAction = () => ({ type: 'RESET_ASSERTIONS' });
+
 export {
   receiveTokenSuccess,
   playerInfoToStore,
@@ -60,4 +64,6 @@ export {
   actionReciveButton,
   sumScore,
   sumTotalPoints,
+  resetScoreAction,
+  resetAssertionsAction,
 };

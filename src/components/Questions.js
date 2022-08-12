@@ -23,31 +23,37 @@ class Question extends React.Component {
   }
 
   validationAnswer = (target) => {
-    const { question, timer, sumScoreAction, score, sumTotalPointsAction } = this.props;
+    const { question, timer, sumScoreAction, score, sumPoints } = this.props;
     const MAGICNUMBER = 10;
     const HARD = 3;
     let subTotalScore = 0;
     let totalScore = 0;
+    let assertions = 0;
     if (target.id === 'correct-answer') {
-      sumTotalPointsAction();
       if (question.difficulty === 'easy') {
+        assertions += 1;
         subTotalScore = MAGICNUMBER + (timer * 1);
         totalScore = subTotalScore + score;
         sumScoreAction(totalScore);
+        sumPoints(assertions);
         console.log(subTotalScore);
         console.log(totalScore);
       }
       if (question.difficulty === 'medium') {
+        assertions += 1;
         subTotalScore = MAGICNUMBER + (timer * 2);
         totalScore = subTotalScore + score;
         sumScoreAction(totalScore);
+        sumPoints(assertions);
         console.log(subTotalScore);
         console.log(totalScore);
       }
       if (question.difficulty === 'hard') {
+        assertions += 1;
         subTotalScore = MAGICNUMBER + (timer * HARD);
         totalScore = subTotalScore + score;
         sumScoreAction(totalScore);
+        sumPoints(assertions);
         console.log(subTotalScore);
         console.log(totalScore);
       }
@@ -130,7 +136,7 @@ Question.propTypes = {
   timer: PropTypes.number.isRequired,
   sumScoreAction: PropTypes.func.isRequired,
   reciveButton: PropTypes.func.isRequired,
-  sumTotalPointsAction: PropTypes.func.isRequired,
+  sumPoints: PropTypes.func.isRequired,
 };
 
 Question.defaultProps = {
@@ -148,7 +154,7 @@ const mapStateToProps = (store) => ({
 const mapDispatchToProps = (dispatch) => ({
   reciveButton: (payload) => dispatch(actionReciveButton(payload)),
   sumScoreAction: (payload) => dispatch(sumScore(payload)),
-  sumTotalPointsAction: () => dispatch(sumTotalPoints()),
+  sumPoints: () => dispatch(sumTotalPoints()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Question);

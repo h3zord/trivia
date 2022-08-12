@@ -11,7 +11,16 @@ const player = (state = INITIAL_STATE, action) => {
     };
   case 'SUM_TOTAL_POINTS':
     return {
-      ...state, assertions: state.assertions + 1,
+      ...state,
+      assertions: state.assertions + 1,
+    };
+  case 'RESET_SCORE':
+    return {
+      ...state, score: 0,
+    };
+  case 'RESET_ASSERTIONS':
+    return {
+      ...state, assertions: 0,
     };
   default:
     return {

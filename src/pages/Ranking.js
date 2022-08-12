@@ -16,12 +16,11 @@ class Ranking extends React.Component {
       <div>
         <h1 data-testid="ranking-title">Ranking</h1>
         {
-          ranking.map((position, index) => (
+          ranking && ranking.map((position, index) => (
             <div key={ index }>
               <img
                 src={ `https://www.gravatar.com/avatar/${md5(position.picture).toString()}` }
                 alt="GravatarImage"
-                data-testid="header-profile-picture"
               />
               <p data-testid={ `player-name-${index}` }>{position.name}</p>
               <p data-testid={ `player-score-${index}` }>{position.score}</p>

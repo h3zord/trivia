@@ -35,7 +35,6 @@ class Game extends React.Component {
       localStorage.setItem('ranking', JSON.stringify([persson]));
     } else {
       const ricoverRankingAtLocalStorage = JSON.parse([ranking]);
-      console.log(ricoverRankingAtLocalStorage);
       ricoverRankingAtLocalStorage.push(persson);
       localStorage.setItem('ranking', JSON.stringify(ricoverRankingAtLocalStorage));
     }

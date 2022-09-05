@@ -16,19 +16,18 @@ class Timer extends React.Component {
       let maxTimer = timer;
       if (maxTimer > 0) {
         maxTimer -= 1;
-        showTimerAction(maxTimer);
-      } else if (maxTimer === 0) {
-        timeOverAction(true);
-        showTimerAction(0);
-        reciveButton(true);
+        return showTimerAction(maxTimer);
       }
+      timeOverAction(true);
+      showTimerAction(0);
+      reciveButton(true);
     }, TIMEINTERVAL);
   }
 
   render() {
     const { timer } = this.props;
     return (
-      <p>
+      <p data-testid="timer">
         Timer:
         {' '}
         { timer }

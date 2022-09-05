@@ -34,10 +34,6 @@ const game = (state = INITIAL_STATE, action) => {
     return {
       ...state, showButton: action.payload,
     };
-  // case 'SUM_SCORE':
-  //   return {
-  //     ...state, player: { score: action.payload },
-  //   };
   default:
     return state;
   }

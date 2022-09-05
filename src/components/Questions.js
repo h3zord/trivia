@@ -49,7 +49,7 @@ class Question extends React.Component {
   }
 
   handleClick = ({ target }) => {
-    const { question: { correct_answer: correct }, reciveButton } = this.props;
+    const { reciveButton } = this.props;
     // if (target.innerText === correct) {
     //   target.classList.add('question-correct');
     // } else {

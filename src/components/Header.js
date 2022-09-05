@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 class Header extends React.Component {
   render() {
     const { playerName, playerScore, playerEmail } = this.props;
-    console.log(playerScore);
     return (
       <header>
         <img

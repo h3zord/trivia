@@ -1,63 +1,68 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+import { questionsResponse } from '../../cypress/mocks/questions';
 import App from '../App';
 import Feedback from '../pages/Feedback/';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
-const {questionsResponse} = require('../../cypress/mocks/questions')
+
 
 describe('Testing the Feedback Page', () => {
-  global.fetch = jest.fn(() => Promise.resolve({
-    json: () => Promise.resolve(questionsResponse),
-  }));
-  test('Test if Feedback page is renders correctly', () => {
-    const feedback = renderWithRouterAndRedux(<Feedback />);
+  jest.spyOn(global, 'fetch').mockResolvedValue({
+    json: jest.fn().mockResolvedValue(questionsResponse)
+  })
 
-    const message = screen.getByTestId('feedback-text');
-    const assertions = screen.getByTestId('feedback-total-question');
-    const score = screen.getByTestId('feedback-total-score');
+  test('Testing feedback page', () => {
+    renderWithRouterAndRedux(<Feedback />);
 
-    expect(message).toBeInTheDocument();
-    expect(assertions).toBeInTheDocument();
-    expect(score).toBeInTheDocument();
+    const result = screen.getByText("Could be better...");
+    const totalScore = screen.getByTestId('feedback-total-score');
+    const hits = screen.getByTestId('feedback-total-question');
+    
+    expect(result).toBeInTheDocument();
+    expect(totalScore).toBeInTheDocument();
+    expect(hits).toBeInTheDocument();
 });
 
-test('Test playing the game and starting a new game', async () => {
-    const feedback = renderWithRouterAndRedux(<App />);
+test('Testing if play again button works correctly', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
 
     const name = screen.getByTestId('input-player-name');
     const email = screen.getByTestId('input-gravatar-email');
-    const gameButton = screen.getByRole('button', { name: 'Play' });
+    const playButton = screen.getByRole('button', { name: 'Play' });
 
-    userEvent.type(name, 'usuario1');
+    userEvent.type(name, 'test');
     userEvent.type(email, 'test@test.com');
-    userEvent.click(gameButton);
+    userEvent.click(playButton);
 
 
     await waitFor(() => expect(fetch).toHaveBeenCalled())
     
     const correctAnswer1 = await screen.findByTestId('correct-answer');
     userEvent.click(correctAnswer1);
-    const nextQuestion = screen.getByRole('button', { name: 'Next' });
-    userEvent.click(nextQuestion);
-    userEvent.click(await screen.findByTestId('correct-answer'));
-    userEvent.click(screen.getByRole('button', { name: 'Next' }));
-    userEvent.click(await screen.findByTestId('correct-answer'));
-    userEvent.click(screen.getByRole('button', { name: 'Next' }));
-    userEvent.click(await screen.findByTestId('correct-answer'));
-    userEvent.click(screen.getByRole('button', { name: 'Next' }));
-    userEvent.click(await screen.findByTestId('correct-answer'));
-    userEvent.click(screen.getByRole('button', { name: 'Next' }));
+    userEvent.click(screen.getByRole("button", { name: /next/i }));
+    const correctAnswer2 = await screen.findByTestId('correct-answer')
+    userEvent.click(correctAnswer2);
+    userEvent.click(screen.getByRole("button", { name: /next/i }));
+    const correctAnswer3 = await screen.findByTestId('correct-answer')
+    userEvent.click(correctAnswer3)
+    userEvent.click(screen.getByRole("button", { name: /next/i }));
+    const correctAnswer4 = await screen.findByTestId('correct-answer')
+    userEvent.click(correctAnswer4);
+    userEvent.click(screen.getByRole("button", { name: /next/i }));
+    const correctAnswer5 = await screen.findByTestId('correct-answer')
+    userEvent.click(correctAnswer5);
+    userEvent.click(screen.getByRole("button", { name: /next/i }));
 
     const playAgainButton = screen.getByRole('button', { name: 'Play Again' });
     userEvent.click(playAgainButton);
 
-    const { pathname } = feedback.history.location;
+    const { pathname } = history.location;
     expect(pathname).toBe('/');
 });
 
-test('Test when finish the game and click Ranking button for render ranking page', async () => {
-  const feedback = renderWithRouterAndRedux(<App />);
+test('Testing if ranking button works correctly', async () => {
+  const { history } = renderWithRouterAndRedux(<App />);
 
   const name = screen.getByTestId('input-player-name');
   const email = screen.getByTestId('input-gravatar-email');
@@ -72,21 +77,24 @@ test('Test when finish the game and click Ranking button for render ranking page
   
   const correctAnswer1 = await screen.findByTestId('correct-answer');
   userEvent.click(correctAnswer1);
-  const nextQuestion = screen.getByRole('button', { name: 'Next' });
-  userEvent.click(nextQuestion);
-  userEvent.click(await screen.findByTestId('correct-answer'));
-  userEvent.click(screen.getByRole('button', { name: 'Next' }));
-  userEvent.click(await screen.findByTestId('correct-answer'));
-  userEvent.click(screen.getByRole('button', { name: 'Next' }));
-  userEvent.click(await screen.findByTestId('correct-answer'));
-  userEvent.click(screen.getByRole('button', { name: 'Next' }));
-  userEvent.click(await screen.findByTestId('correct-answer'));
-  userEvent.click(screen.getByRole('button', { name: 'Next' }));
+  userEvent.click(screen.getByRole("button", { name: /next/i }));
+  const correctAnswer2 = await screen.findByTestId('correct-answer')
+  userEvent.click(correctAnswer2);
+  userEvent.click(screen.getByRole("button", { name: /next/i }));
+  const correctAnswer3 = await screen.findByTestId('correct-answer')
+  userEvent.click(correctAnswer3)
+  userEvent.click(screen.getByRole("button", { name: /next/i }));
+  const correctAnswer4 = await screen.findByTestId('correct-answer')
+  userEvent.click(correctAnswer4);
+  userEvent.click(screen.getByRole("button", { name: /next/i }));
+  const correctAnswer5 = await screen.findByTestId('correct-answer')
+  userEvent.click(correctAnswer5);
+  userEvent.click(screen.getByRole("button", { name: /next/i }));
 
   const rankingButton = screen.getByRole('button', {  name: /ranking/i});
   userEvent.click(rankingButton);
 
-  const { pathname } = feedback.history.location;
+  const { pathname } = history.location;
   expect(pathname).toBe('/ranking');
 });
 

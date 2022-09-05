@@ -3,61 +3,62 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
-const {questionsResponse} = require('../../cypress/mocks/questions')
+import { questionsResponse } from '../../cypress/mocks/questions';
 
 describe('Testing the Login Component', () => {
   global.fetch = jest.fn(() => Promise.resolve({
     json: () => Promise.resolve(questionsResponse),
   }));
+
   test('Test if Login page is renders correctly', () => {
 
-    const teste = renderWithRouterAndRedux(<App />);
+    const { history } = renderWithRouterAndRedux(<App />);
 
     const name = screen.getByTestId('input-player-name');
     const email = screen.getByTestId('input-gravatar-email');
-    const gameButton = screen.getByRole('button', { name: 'Play' });
-    const settingsButton = screen.getByRole('button', { name: 'Configurações' });
+    const playButton = screen.getByRole("button", { name: /play/i });
+    const settingsButton = screen.getByRole("button", { name: /configurações/i });
 
     
     expect(name).toBeInTheDocument()
     expect(email).toBeInTheDocument();
-    expect(gameButton).toBeInTheDocument();
+    expect(playButton).toBeInTheDocument();
     expect(settingsButton).toBeInTheDocument();
 
     
-    const { pathname } = teste.history.location;
+    const { pathname } = history.location;
     expect(pathname).toBe('/');
 });
 
 test('Test login and if game button redirect for game page correctly', async () => {
-  const game = renderWithRouterAndRedux(<App />);
+  const { history } = renderWithRouterAndRedux(<App />);
 
   const name = screen.getByTestId('input-player-name');
   const email = screen.getByTestId('input-gravatar-email');
-  const gameButton = screen.getByRole('button', { name: 'Play' });
+  const playButton = screen.getByRole("button", { name: /play/i });
 
-  userEvent.type(name, 'gamer player');
-  userEvent.type(email, 'user@teste.com');
-  userEvent.click(gameButton);
+  userEvent.type(name, 'test');
+  userEvent.type(email, 'test@test.com');
+  userEvent.click(playButton);
 
   await waitFor(() => expect(fetch).toHaveBeenCalled())
 
-  const { pathname } = game.history.location;
+  const { pathname } = history.location;
   expect(pathname).toBe('/game');
 });
 
 test('Testing configuration page', () => {
-  const settings = renderWithRouterAndRedux(<App />);
+  const { history } = renderWithRouterAndRedux(<App />);
 
   const name = screen.getByTestId('input-player-name');
   const email = screen.getByTestId('input-gravatar-email');
-  const gameButton = screen.getByRole('button', { name: 'Configurações' });
+  const playButton = screen.getByRole("button", { name: /configurações/i });
 
-  userEvent.type(name, 'gamer player');
-  userEvent.type(email, 'user@teste.com');
-  userEvent.click(gameButton);
+  userEvent.type(name, 'test');
+  userEvent.type(email, 'test@test.com');
+  userEvent.click(playButton);
 
-  const { pathname } = settings.history.location;
+  const { pathname } = history.location;
   expect(pathname).toBe('/settings');
   });
 });

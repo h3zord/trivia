@@ -7,7 +7,6 @@ class Question extends React.Component {
   alternate = (element) => {
     const { question: { correct_answer: correct } } = this.props;
     for (let index = 0; index < element.length; index += 1) {
-      console.log('a');
       if (element[index].innerText === correct) {
         element[index].classList.add('question-correct');
       } else {

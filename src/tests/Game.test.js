@@ -1,11 +1,9 @@
 import { screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { element } from "prop-types"
 import React from "react"
-import { questionsResponse } from "../../cypress/mocks/questions"
+import { invalidTokenQuestionsResponse, questionsResponse } from "../../cypress/mocks/questions"
 import App from "../App"
 import renderWithRouterAndRedux from "./helpers/renderWithRouterAndRedux"
-const {invalidTokenQuestionsResponse} = require('../../cypress/mocks/questions')
 
 describe('Testing game page', () => {
   afterEach(() => jest.clearAllMocks());
@@ -96,14 +94,15 @@ describe('Testing invalid token ', () => {
     jest.spyOn(global, 'fetch').mockResolvedValue({
       json: jest.fn().mockResolvedValue(invalidTokenQuestionsResponse)
     })
+  
     const { history } = renderWithRouterAndRedux(<App />);
     const name = screen.getByTestId('input-player-name');
     const email = screen.getByTestId('input-gravatar-email');
-    const gameButton = screen.getByRole('button', { name: 'Play' });
+    const playButton = screen.getByRole('button', { name: 'Play' });
 
     userEvent.type(name, 'test');
     userEvent.type(email, 'test@test.com');
-    userEvent.click(gameButton);
+    userEvent.click(playButton);
 
     await waitFor(() => expect(fetch).toHaveBeenCalled())
   

@@ -1,10 +1,8 @@
 import { screen, waitFor } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
 import React from "react"
-import App from "../App"
 import Game from "../pages/Game"
 import renderWithRouterAndRedux from "./helpers/renderWithRouterAndRedux"
-const { questionsResponse, invalidTokenQuestionsResponse } = require('../../cypress/mocks/questions');
+import { questionsResponse } from "../../cypress/mocks/questions"
 
 describe('testing', () => {
   const INITIAL_STATE = {
@@ -16,7 +14,7 @@ describe('testing', () => {
     showButton: false,
   };
 
-  test('Verifica funcionamento do timer', async () => {
+  test('Testing if timer works correctly', async () => {
     jest.spyOn(global, 'fetch').mockResolvedValue({
       json: jest.fn().mockResolvedValue(questionsResponse),
     });
@@ -26,15 +24,13 @@ describe('testing', () => {
     renderWithRouterAndRedux(<Game />, INITIAL_STATE);
     
     await waitFor(() => expect(fetch).toHaveBeenCalled());
-    jest.advanceTimersByTime(3000);
+    jest.advanceTimersByTime(5000);
     
     const timer = screen.getByTestId('timer');
-    expect(timer).toHaveTextContent(27);
+    expect(timer).toHaveTextContent(25);
 
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
-  test('Verifica atualização do timer', async () => {
+  test('Testing time over', async () => {
     jest.spyOn(global, 'fetch').mockResolvedValue({
       json: jest.fn().mockResolvedValue(questionsResponse),
     });
@@ -49,10 +45,10 @@ describe('testing', () => {
     const timer = screen.getByTestId('timer');
     expect(timer).toHaveTextContent(0);
 
-    const btnNext = screen.getByTestId('btn-next');
-    expect(btnNext).toBeInTheDocument();
+    const nextButton = screen.getByTestId('btn-next');
+    expect(nextButton).toBeInTheDocument();
 
-    const questionButton = screen.getByTestId('correct-answer');
-    expect(questionButton).toBeDisabled();
+    const correctAnswers = screen.getByTestId('correct-answer');
+    expect(correctAnswers).toBeDisabled();
   });
 }) 

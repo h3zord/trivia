@@ -21,6 +21,8 @@ class Game extends React.Component {
         'token',
       )}`,
     );
+
+    this.timeToAnswer();
   };
 
   saveInLocalStorage = () => {
@@ -31,6 +33,7 @@ class Game extends React.Component {
       score: player.score,
       picture: login.playerEmail,
     };
+
     if (ranking === null) {
       localStorage.setItem('ranking', JSON.stringify([persson]));
     } else {
@@ -40,14 +43,55 @@ class Game extends React.Component {
     }
   }
 
+  resetClass = () => {
+    const buttons = document.querySelectorAll('.button');
+
+    for (let index = 0; index < buttons.length; index += 1) {
+      buttons[index].className = 'button';
+    }
+  }
+
+  timeToAnswer = () => {
+    const { showTimerAction, timeOverAction, reciveButton, history } = this.props;
+
+    const TIMEINTERVAL = 1000;
+
+    const myInterval = setInterval(() => {
+      const { timer } = this.props;
+
+      let maxTimer = timer;
+
+      if (history.location.pathname.includes('feedback')) {
+        return clearInterval(myInterval);
+      }
+
+      if (maxTimer > 0) {
+        maxTimer -= 1;
+
+        return showTimerAction(maxTimer);
+      }
+
+      timeOverAction(true);
+      showTimerAction(0);
+      reciveButton(true);
+    }, TIMEINTERVAL);
+
+    return myInterval;
+  }
+
   onClickChange = () => {
-    const { history, showTimerAction, timeOverAction, reciveButton } = this.props;
+    const { history,
+      showTimerAction,
+      timeOverAction,
+      reciveButton } = this.props;
+
     const { indexQuestions } = this.state;
     const numberIndex = 4;
     const MAGICNUMBER = 30;
     this.setState((prevState) => ({
       indexQuestions: prevState.indexQuestions + 1,
     }));
+
     if (indexQuestions === numberIndex) {
       this.saveInLocalStorage();
       history.push('/feedback');
@@ -55,6 +99,7 @@ class Game extends React.Component {
     showTimerAction(MAGICNUMBER);
     timeOverAction(false);
     reciveButton(false);
+    this.resetClass();
   }
 
   render() {
@@ -104,6 +149,7 @@ const mapStateToProps = (store) => ({
   showButton: store.game.showButton,
   player: store.player,
   login: store.login,
+  timer: store.game.timer,
 });
 
 Game.propTypes = {
@@ -119,6 +165,7 @@ Game.propTypes = {
   reciveButton: PropTypes.func.isRequired,
   player: PropTypes.objectOf(PropTypes.any).isRequired,
   login: PropTypes.objectOf(PropTypes.any).isRequired,
+  timer: PropTypes.number.isRequired,
 };
 
 Game.defaultProps = {

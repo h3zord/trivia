@@ -1,9 +1,19 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { actionReciveButton, sumScore, sumTotalPoints } from '../redux/actions';
+import { actionReciveButton, sumScore, sumTotalPoints, timeOver } from '../redux/actions';
 
 class Question extends React.Component {
+  componentDidUpdate() {
+    const { timer } = this.props;
+
+    if (timer === 0) {
+      const MAGICNUMBER = 1000;
+      const buttons = document.querySelectorAll('.button');
+      setTimeout(() => this.alternate(buttons), MAGICNUMBER);
+    }
+  }
+
   alternate = (element) => {
     const { question: { correct_answer: correct } } = this.props;
     for (let index = 0; index < element.length; index += 1) {
@@ -48,29 +58,27 @@ class Question extends React.Component {
   }
 
   handleClick = ({ target }) => {
-    const { reciveButton } = this.props;
-    // if (target.innerText === correct) {
-    //   target.classList.add('question-correct');
-    // } else {
-    //   target.classList.add('question-incorrect');
-    // }
+    const { reciveButton, timeOverAction } = this.props;
     const buttons = document.querySelectorAll('.button');
     this.alternate(buttons);
     reciveButton(true);
     this.validationAnswer(target);
+    timeOverAction(true);
   }
 
   render() {
-    const { question, randomArray, timeOver } = this.props;
+    const { question, randomArray, timeOverStore } = this.props;
     let wrongAnswerIndex = 0;
     return (
       <>
         <div data-testid="question-category">
           { question.category }
         </div>
+        <br />
         <div data-testid="question-text">
           { question.question }
         </div>
+        <br />
         <div data-testid="answer-options">
           {randomArray.map((answer) => {
             if (answer === question.correct_answer) {
@@ -82,7 +90,7 @@ class Question extends React.Component {
                   key="correct_answer"
                   className="button"
                   onClick={ this.handleClick }
-                  disabled={ timeOver }
+                  disabled={ timeOverStore }
                 >
                   {answer}
                 </button>);
@@ -95,7 +103,7 @@ class Question extends React.Component {
                 key={ wrongAnswerIndex }
                 className="button"
                 onClick={ this.handleClick }
-                disabled={ timeOver }
+                disabled={ timeOverStore }
               >
                 {answer}
               </button>);
@@ -109,12 +117,13 @@ class Question extends React.Component {
 Question.propTypes = {
   question: PropTypes.objectOf(PropTypes.any).isRequired,
   randomArray: PropTypes.arrayOf(PropTypes.any).isRequired,
-  timeOver: PropTypes.bool.isRequired,
+  timeOverStore: PropTypes.bool.isRequired,
   score: PropTypes.number,
   timer: PropTypes.number.isRequired,
   sumScoreAction: PropTypes.func.isRequired,
   reciveButton: PropTypes.func.isRequired,
   sumPoints: PropTypes.func.isRequired,
+  timeOverAction: PropTypes.func.isRequired,
 };
 
 Question.defaultProps = {
@@ -122,17 +131,17 @@ Question.defaultProps = {
 };
 
 const mapStateToProps = (store) => ({
-  timeOver: store.game.timeOver,
+  timeOverStore: store.game.timeOver,
   showButton: store.game.showButton,
   score: store.player.score,
   timer: store.game.timer,
-  // score: store.game.player.score,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   reciveButton: (payload) => dispatch(actionReciveButton(payload)),
   sumScoreAction: (payload) => dispatch(sumScore(payload)),
   sumPoints: () => dispatch(sumTotalPoints()),
+  timeOverAction: (payload) => dispatch(timeOver(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Question);

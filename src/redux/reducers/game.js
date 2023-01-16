@@ -7,12 +7,14 @@ const INITIAL_STATE = {
   timer: 30,
   timeOver: false,
   showButton: false,
+  endGame: false,
 };
 
 const game = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case REQUEST_API:
     return { ...state, requestAPI: true };
+
   case REQUEST_SUCSSES:
     return { ...state,
       questions: action.questions,
@@ -21,10 +23,12 @@ const game = (state = INITIAL_STATE, action) => {
       requestAPI: false,
       requestState: action.requestState,
     };
+
   case 'SHOW_TIMER':
     return {
       ...state, timer: action.payload,
     };
+
   case 'TIME_OVER':
     return {
       ...state, timeOver: action.payload,
@@ -34,6 +38,7 @@ const game = (state = INITIAL_STATE, action) => {
     return {
       ...state, showButton: action.payload,
     };
+
   default:
     return state;
   }

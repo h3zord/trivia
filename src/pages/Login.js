@@ -44,7 +44,7 @@ class Login extends React.Component {
       <>
         <form>
           <label htmlFor="input-player-name">
-            Jogador:
+            Player:
             <input
               type="text"
               data-testid="input-player-name"

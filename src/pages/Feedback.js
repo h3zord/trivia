@@ -2,34 +2,22 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
-import { resetAssertionsAction, resetScoreAction } from '../redux/actions';
-
-// menssageScore = () => {
-//   const { getScore } = this.props;
-//   const number = 3;
-//   if (getScore < number) {
-//     return 'Could be better...';
-//   }
-//   if (getScore >= number) {
-//     return 'Well Done!';
-//   }
-// };
-
-// handleClick = () => {
-//   const { history } = this.props;
-//   history.push('/Ranking');
-// };
+import { resetAssertionsAction, resetScoreAction, showTimer } from '../redux/actions';
 
 class Feedback extends React.Component {
   playAgainClick = () => {
-    const { history, resetScore, resetAssertions } = this.props;
+    const { history, resetScore, resetAssertions, showTimerAction } = this.props;
+    const MAGICNUMBER = 30;
+    showTimerAction(MAGICNUMBER);
     resetScore();
     resetAssertions();
     history.push('/');
   }
 
   rankingButtonClick = () => {
-    const { history, resetScore, resetAssertions } = this.props;
+    const { history, resetScore, resetAssertions, showTimerAction } = this.props;
+    const MAGICNUMBER = 30;
+    showTimerAction(MAGICNUMBER);
     resetScore();
     resetAssertions();
     history.push('/ranking');
@@ -41,17 +29,17 @@ class Feedback extends React.Component {
     return (
       <div>
         <Header />
+        <p className="score">
+          Score:
+          {' '}
+          <span data-testid="feedback-total-score">
+            {getScore}
+          </span>
+        </p>
         { totalPoints < MIN_POINTS
           ? (
             <p data-testid="feedback-text">Could be better...</p>)
           : <p data-testid="feedback-text">Well Done!</p>}
-        <p>
-          Score:
-          {' '}
-          <spam data-testid="feedback-total-score">
-            {getScore}
-          </spam>
-        </p>
         <p>
           Hits:
           {' '}
@@ -73,14 +61,6 @@ class Feedback extends React.Component {
         >
           Ranking
         </button>
-        {/* {this.menssageScore} */}
-        {/* <button
-          type="button"
-          data-testid="btn-ranking"
-          onClick={ this.handleClick }
-        >
-          Ranking
-        </button> */}
       </div>
     );
   }
@@ -92,8 +72,9 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  resetScore: (score) => { dispatch(resetScoreAction(score)); },
-  resetAssertions: (assertions) => { dispatch(resetAssertionsAction(assertions)); },
+  resetScore: (score) => dispatch(resetScoreAction(score)),
+  resetAssertions: (assertions) => dispatch(resetAssertionsAction(assertions)),
+  showTimerAction: (payload) => dispatch(showTimer(payload)),
 });
 
 Feedback.propTypes = {
@@ -102,6 +83,7 @@ Feedback.propTypes = {
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   resetScore: PropTypes.func.isRequired,
   resetAssertions: PropTypes.func.isRequired,
+  showTimerAction: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Feedback);

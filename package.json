@@ -2,6 +2,7 @@
   "name": "trivia-react-redux",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://h3zord.github.io/trivia/",
   "engines": {
     "node": "16"
   },
@@ -9,6 +10,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/user-event": "^7.1.2",
     "crypto-js": "^4.1.1",
+    "gh-pages": "^4.0.0",
     "prop-types": "^15.8.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -29,7 +31,9 @@
     "eject": "react-scripts eject",
     "test-coverage": "react-scripts test --coverage --watchAll=false",
     "lint:styles": "npx stylelint '**/*.css'",
-    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js,.jsx"
+    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js,.jsx",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -65,6 +69,7 @@
     "mochawesome": "^6.1.1",
     "mochawesome-merge": "^4.0.3",
     "mochawesome-report-generator": "^5.1.0",
+    "react-error-overlay": "^6.0.9",
     "stylelint": "^13.8.0",
     "stylelint-config-standard": "20.0.0",
     "stylelint-order": "^4.1.0"

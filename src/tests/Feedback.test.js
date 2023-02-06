@@ -1,7 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { questionsResponse } from '../../cypress/mocks/questions';
+import { questionsResponse } from './mocks/questions';
 import App from '../App';
 import Feedback from '../pages/Feedback/';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';

@@ -1,7 +1,7 @@
 import { screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import React from "react"
-import { invalidTokenQuestionsResponse, questionsResponse } from "../../cypress/mocks/questions"
+import { questionsResponse, invalidTokenQuestionsResponse } from './mocks/questions';
 import App from "../App"
 import renderWithRouterAndRedux from "./helpers/renderWithRouterAndRedux"
 
@@ -18,7 +18,6 @@ describe('Testing game page', () => {
   
     await waitFor(() => expect(fetch).toHaveBeenCalled())
 		const logo = await screen.findByRole("img", { name: /logo/i });
-		const text = await screen.findByText("SUA VEZ");
 		const avatar = await screen.findByTestId('header-profile-picture');
 		const player = await screen.findByText("Player:");
 		const score = await screen.findByText("Score:");

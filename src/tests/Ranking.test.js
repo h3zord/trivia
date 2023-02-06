@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
-import { questionsResponse } from '../../cypress/mocks/questions';
+import { questionsResponse } from './mocks/questions';
 
 describe('Testing the Ranking Page', () => {
   jest.spyOn(global, 'fetch').mockResolvedValue({

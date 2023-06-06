@@ -27,14 +27,14 @@ https://user-images.githubusercontent.com/102384026/226149556-88f57a48-14d0-4d7d
 
 <strong>Trivia</strong> é um projeto desenvolvido por um grupo de cinco pessoas. Escrevemos o código de forma individual e em pair programming, resultando em um jogo de perguntas e respostas fornecido por uma API.
 
-O planejamento foi realizado por meio de reuniões diárias via Zoom e a comunicação assíncrona foi garantida por meio do Trello e do Slack. Adotamos o Git como nosso método de versionamento de código.
+O planejamento foi realizado por meio de reuniões diárias via zoom e a comunicação assíncrona foi garantida por meio do trello e do slack. Adotamos o git como nosso método de versionamento de código.
 
-A aplicação foi desenvolvida usando React, Redux para controlar o estado global e CSS para estilização.
-Para a construção dos testes, utilizamos as bibliotecas Jest, Mocha e React Testing Library, com desenvolvimento orientado a testes (TDD) e uma cobertura de aproximadamente 80% da aplicação.
+A aplicação foi desenvolvida usando react, redux para controlar o estado global e CSS para estilização.
+Para a construção dos testes, utilizamos as bibliotecas jest, mocha e react testing library, com desenvolvimento orientado a testes (TDD) e uma cobertura de aproximadamente 80% da aplicação.
 
 Ao iniciar o jogo, o jogador é solicitado a inserir seu nome e e-mail. Em seguida, é direcionado às perguntas, e deve respondê-las antes que o tempo esgote. Quanto mais rápido o jogador responder, mais pontos ele acumulará. São cinco rodadas de perguntas, e ao término, uma tela é renderizada para exibir a pontuação total, permitindo ao jogador jogar novamente ou acessar a área de ranking. Sua pontuação é armazenada no localStorage.
 
-## Linguagens e ferramentas:
+## Linguagens e ferramentas
 - HTML
 - CSS
 - Javascript
@@ -75,7 +75,7 @@ Caso utilize o yarn
 ```
 yarn start
 ```
-<strong>O React irá executar a aplicação na porta padrão 3000.</strong>
+<strong>O react irá executar a aplicação na porta padrão 3000.</strong>
 <br/>
 ➜ http://localhost:3000/
 
